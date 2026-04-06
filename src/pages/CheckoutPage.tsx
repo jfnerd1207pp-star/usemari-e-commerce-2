@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { CreditCard, FileText, ArrowLeft, CheckCircle } from 'lucide-react';
+import { CreditCard, FileText, ArrowLeft, CheckCircle, QrCode } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useCart } from '@/hooks/useCart';
 
-type PaymentMethod = 'card' | 'boleto';
+type PaymentMethod = 'card' | 'boleto' | 'pix';
 
 export default function CheckoutPage() {
   const { items, totalPrice, clearCart } = useCart();
@@ -65,7 +65,7 @@ export default function CheckoutPage() {
             {/* Payment method */}
             <div>
               <h3 className="text-xl font-medium mb-4" style={{ fontFamily: 'var(--font-display)' }}>Forma de Pagamento</h3>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-3 gap-4">
                 <button
                   type="button"
                   onClick={() => setPayment('card')}
@@ -86,13 +86,23 @@ export default function CheckoutPage() {
                   <FileText className={`w-6 h-6 ${payment === 'boleto' ? 'text-gold' : 'text-muted-foreground'}`} />
                   <span className="text-sm font-medium">Boleto</span>
                 </button>
+                <button
+                  type="button"
+                  onClick={() => setPayment('pix')}
+                  className={`p-5 rounded-xl border-2 flex flex-col items-center gap-2 transition-all duration-300 ${
+                    payment === 'pix' ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/40'
+                  }`}
+                >
+                  <QrCode className={`w-6 h-6 ${payment === 'pix' ? 'text-gold' : 'text-muted-foreground'}`} />
+                  <span className="text-sm font-medium">Pix</span>
+                </button>
               </div>
             </div>
 
             {/* Form fields */}
             <div className="space-y-4">
               <h3 className="text-xl font-medium" style={{ fontFamily: 'var(--font-display)' }}>
-                {payment === 'card' ? 'Dados do Cartão' : 'Dados para Boleto'}
+                {payment === 'card' ? 'Dados do Cartão' : payment === 'boleto' ? 'Dados para Boleto' : 'Dados para Pix'}
               </h3>
               <input required type="text" placeholder="Nome completo" className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-all" />
               <input required type="email" placeholder="E-mail" className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-all" />
@@ -107,6 +117,15 @@ export default function CheckoutPage() {
               )}
               {payment === 'boleto' && (
                 <input required type="text" placeholder="CPF" className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-all" />
+              )}
+              {payment === 'pix' && (
+                <div className="space-y-4">
+                  <input required type="text" placeholder="CPF" className="w-full px-4 py-3 rounded-lg border border-input bg-background text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-ring transition-all" />
+                  <div className="p-6 rounded-xl border border-border bg-muted/30 text-center space-y-3">
+                    <QrCode className="w-16 h-16 mx-auto text-gold" />
+                    <p className="text-sm text-muted-foreground">O QR Code será gerado após confirmar o pedido</p>
+                  </div>
+                </div>
               )}
             </div>
           </div>
