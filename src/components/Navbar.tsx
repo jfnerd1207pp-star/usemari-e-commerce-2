@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ShoppingBag, Menu, X } from 'lucide-react';
+import { ShoppingBag, Menu, X, User } from 'lucide-react';
 
 export default function Navbar() {
   const [cartCount, setCartCount] = useState(0);
@@ -45,6 +45,9 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-4">
+            <Link to="/login" className="group">
+              <User className="w-5 h-5 text-foreground/70 group-hover:text-foreground transition-colors" />
+            </Link>
             <Link to="/carrinho" className="relative group">
               <ShoppingBag className="w-5 h-5 text-foreground/70 group-hover:text-foreground transition-colors" />
               {cartCount > 0 && (
