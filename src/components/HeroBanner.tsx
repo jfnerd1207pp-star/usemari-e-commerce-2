@@ -1,5 +1,5 @@
 import heroBanner from '@/assets/hero-banner.jpg';
-import logo from '@/assets/logo.jpeg';
+import logo from '@/assets/logo.png';
 
 export default function HeroBanner() {
   const scrollToProducts = () => {
