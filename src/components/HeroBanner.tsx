@@ -20,7 +20,7 @@ export default function HeroBanner() {
       </div>
 
       <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
-        <img src={logo} alt="Usemari" className="h-40 md:h-52 w-auto mx-auto mb-8 brightness-0 invert drop-shadow-[0_4px_20px_rgba(255,255,255,0.3)]" />
+        <img src={logo} alt="Usemari" className="h-56 md:h-72 w-auto mx-auto mb-8 brightness-0 invert drop-shadow-[0_4px_20px_rgba(255,255,255,0.3)]" />
         <p className="text-sm uppercase tracking-[0.4em] text-primary-foreground/80 mb-4" style={{ fontFamily: 'var(--font-body)' }}>
           Primavera / Verão 2026
         </p>
